@@ -35,10 +35,14 @@ public class Main
   		logger.info("===COUNTRY GERMANY-population === " + countryDao.getCountryByName("Germany").getPopulation());
   		
   		//debug and test EHCache for the second call ;)
-  		//countryDao.getAll();
-  		//countryDao.getAll();
+  		countryDao.getAll();
+  		countryDao.getAll();
   		
-  		countryDao.deleteAll();  			
+  		Country country = countryDao.getCountryByName("Spain");
+  		//get the country from cache because entity is  annotated with @org.hibernate.annotations.Cache
+  		countryDao.getById(country.getId()); 	
+  		
+  		countryDao.deleteAll();
 	}		
 
 }

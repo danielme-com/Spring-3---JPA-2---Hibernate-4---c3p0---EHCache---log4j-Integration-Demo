@@ -59,6 +59,12 @@ public class CountryDaoImpl implements ICountryDao
 		Query query = entityManager.createQuery("from " + Country.class.getName());
 		query.setHint("org.hibernate.cacheable", true);
 		return query.getResultList();
+	}
+
+	@Override
+	public Country getById(Long id)
+	{
+		return entityManager.find(Country.class, id);
 	}	
 
 }

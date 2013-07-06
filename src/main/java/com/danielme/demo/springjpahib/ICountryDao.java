@@ -11,6 +11,8 @@ public interface ICountryDao
 	  
 	  void deleteAll();
 	  
-	  List<Country> getAll();	  
+	  List<Country> getAll();	
+	  
+	  Country getById(Long id);
 
 }
