@@ -10,6 +10,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,8 +34,10 @@ public class CountryDaoImpl implements ICountryDao
 	}
 
 	@Override
+	@Transactional
 	public Country getCountryByName(String name)
 	{
+		//JPA Criertia
 	  CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 	  CriteriaQuery<Country> query = criteriaBuilder.createQuery(Country.class);
 
@@ -43,6 +48,14 @@ public class CountryDaoImpl implements ICountryDao
 	  typedQuery.setParameter("param", name);
 	  
 	  return typedQuery.getResultList().get(0);
+		
+		
+//		//Hibernate Criteria
+//	  Session session = entityManager.unwrap(Session.class);
+//	  Criteria criteria = session.createCriteria(Country.class);
+//	  criteria.add(Restrictions.eq("name", name));
+//	  return (Country) criteria.uniqueResult();  
+
 	}
 
 	@Override
