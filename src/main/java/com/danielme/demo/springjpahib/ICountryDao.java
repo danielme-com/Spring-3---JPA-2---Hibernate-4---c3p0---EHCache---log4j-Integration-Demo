@@ -15,4 +15,10 @@ public interface ICountryDao
 	  
 	  Country getById(Long id);
 
+	  void clearEntityCache();
+
+	  void clearEntityFromCache(Long id);
+
+	  void clearHibenateCache();
+
 }

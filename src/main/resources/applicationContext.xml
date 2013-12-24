@@ -28,7 +28,9 @@
         p:password="${jdbc.password}"
         p:acquireIncrement="${c3p0.acquire_increment}"
         p:minPoolSize="${c3p0.min_size}"
-        p:maxPoolSize="${c3p0.max_size}" />
+        p:maxPoolSize="${c3p0.max_size}" 
+        p:maxIdleTime="${c3p0.max_idle_time}"
+        p:unreturnedConnectionTimeout="${c3p0.unreturned_connection_timeout}"/>
  	
 
      <!-- Hibernate as JPA vendor-->

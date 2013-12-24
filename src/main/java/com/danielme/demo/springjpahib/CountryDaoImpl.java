@@ -12,7 +12,9 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.ejb.QueryHints;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +39,7 @@ public class CountryDaoImpl implements ICountryDao
 	@Transactional
 	public Country getCountryByName(String name)
 	{
-		//JPA Criertia
+		//JPA Criteria
 	  CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 	  CriteriaQuery<Country> query = criteriaBuilder.createQuery(Country.class);
 
@@ -70,7 +72,7 @@ public class CountryDaoImpl implements ICountryDao
 	public List<Country> getAll()
 	{
 		Query query = entityManager.createQuery("from " + Country.class.getName());
-		query.setHint("org.hibernate.cacheable", true);
+		query.setHint(QueryHints.HINT_CACHEABLE, true);
 		return query.getResultList();
 	}
 
@@ -79,5 +81,30 @@ public class CountryDaoImpl implements ICountryDao
 	{
 		return entityManager.find(Country.class, id);
 	}	
+	
+	@Override
+	@Transactional
+	public void clearEntityCache() 
+	{
+		SessionFactory sessionFactory = entityManager.unwrap(Session.class).getSessionFactory();
+		sessionFactory.getCache().evictEntityRegion(Country.class);
+	}
+
+	@Override
+	@Transactional
+	public void clearEntityFromCache(Long id) {
+		SessionFactory sessionFactory = entityManager.unwrap(Session.class).getSessionFactory();
+		sessionFactory.getCache().evictEntity(Country.class, id);
+	}
+
+	@Override
+	@Transactional
+	public void clearHibenateCache() {
+		SessionFactory sessionFactory = entityManager.unwrap(Session.class).getSessionFactory();
+		sessionFactory.getCache().evictEntityRegions();
+		sessionFactory.getCache().evictCollectionRegions();
+		sessionFactory.getCache().evictDefaultQueryRegion();
+		sessionFactory.getCache().evictQueryRegions();
+	}
 
 }
