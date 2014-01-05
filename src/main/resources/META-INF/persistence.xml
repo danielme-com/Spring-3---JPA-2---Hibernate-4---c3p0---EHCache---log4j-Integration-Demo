@@ -3,7 +3,9 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence">
 
 	<persistence-unit name="danielme_persistenceunit" transaction-type="RESOURCE_LOCAL">
-		
+		<!-- Entity manager provider (Hibernate) -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider> 
+		 
 		<!-- named queries -->
 		<mapping-file>META-INF/orm.xml</mapping-file>
 
