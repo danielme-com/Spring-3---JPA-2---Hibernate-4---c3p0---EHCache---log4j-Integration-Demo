@@ -64,7 +64,7 @@ public class CountryDaoImpl implements ICountryDao
 	@Transactional
 	public void deleteAll()
 	{
-	     entityManager.createQuery("DELETE FROM countries").executeUpdate();		
+	     entityManager.createQuery("DELETE FROM Country").executeUpdate();		
 	}
 
 	@SuppressWarnings("unchecked")
