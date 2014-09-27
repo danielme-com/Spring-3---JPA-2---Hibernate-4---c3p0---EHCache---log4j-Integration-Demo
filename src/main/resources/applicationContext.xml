@@ -40,7 +40,7 @@
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource" p:persistenceXmlLocation="classpath:/META-INF/persistence.xml"
+		p:dataSource-ref="dataSource" p:packagesToScan="com.danielme.demo.springjpahib"
 		p:jpaVendorAdapter-ref="jpaAdapter">
 
 		<property name="jpaProperties">
@@ -48,20 +48,19 @@
 				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.connection.autocommit">${hibernate.connection.autocommit}</prop>
-				<prop key="hibernate.cache.use_second_level_cache">true</prop>
-                <prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.query.cache}</prop>
                 <prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
                 <!--useful for debugging-->
-                <prop key="hibernate.generate_statistics">true</prop>
+                <prop key="hibernate.generate_statistics">${hibernate.statistics}</prop>
 			</props>
 		</property>
 
 		<property name="loadTimeWeaver">
 			<bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" />
 		</property>
-		
-		<property name="persistenceUnitName" value="danielme_persistenceunit"/>
+
 		
 	</bean>
 
