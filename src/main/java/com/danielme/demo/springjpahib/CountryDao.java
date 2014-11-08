@@ -2,7 +2,12 @@ package com.danielme.demo.springjpahib;
 
 import java.util.List;
 
-public interface ICountryDao
+/**
+ * The DAO for the Country JPA Entity.
+ * @author danielme.com
+ *
+ */
+public interface CountryDao
 {
 	
 	  void addAll(List<Country> list);
@@ -15,10 +20,10 @@ public interface ICountryDao
 	  
 	  Country getById(Long id);
 
-	  void clearEntityCache();
+	  void clearAllEntitiesCache();
 
 	  void clearEntityFromCache(Long id);
 
-	  void clearHibenateCache();
+	  void clearHibernateCache();
 
 }
