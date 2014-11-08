@@ -10,17 +10,19 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.ejb.QueryHints;
+import org.hibernate.jpa.QueryHints;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
-@Repository(value="countryDao")
-public class CountryDaoImpl implements ICountryDao
+/**
+ * Implementation for {@link CountryDao}.
+ * @author danielme.com
+ *
+ */
+@Repository
+public class CountryDaoImpl implements CountryDao
 {
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -36,7 +38,6 @@ public class CountryDaoImpl implements ICountryDao
 	}
 
 	@Override
-	@Transactional
 	public Country getCountryByName(String name)
 	{
 		//JPA Criteria
@@ -71,7 +72,8 @@ public class CountryDaoImpl implements ICountryDao
 	@Override
 	public List<Country> getAll()
 	{
-		Query query = entityManager.createQuery("from " + Country.class.getName());
+		Query query = entityManager.createQuery("from Country");
+		//stores the query results in the second level cache (if enabled)
 		query.setHint(QueryHints.HINT_CACHEABLE, true);
 		return query.getResultList();
 	}
@@ -84,7 +86,7 @@ public class CountryDaoImpl implements ICountryDao
 	
 	@Override
 	@Transactional
-	public void clearEntityCache() 
+	public void clearAllEntitiesCache() 
 	{
 		SessionFactory sessionFactory = entityManager.unwrap(Session.class).getSessionFactory();
 		sessionFactory.getCache().evictEntityRegion(Country.class);
@@ -99,7 +101,7 @@ public class CountryDaoImpl implements ICountryDao
 
 	@Override
 	@Transactional
-	public void clearHibenateCache() {
+	public void clearHibernateCache() {
 		SessionFactory sessionFactory = entityManager.unwrap(Session.class).getSessionFactory();
 		sessionFactory.getCache().evictEntityRegions();
 		sessionFactory.getCache().evictCollectionRegions();
