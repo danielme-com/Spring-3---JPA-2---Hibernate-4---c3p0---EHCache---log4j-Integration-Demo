@@ -201,7 +201,7 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.driver.version}</version>
 		</dependency>
-		
+
 		<!-- testing -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -215,6 +215,12 @@
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.190</version>
 		</dependency>
 
 	</dependencies>
