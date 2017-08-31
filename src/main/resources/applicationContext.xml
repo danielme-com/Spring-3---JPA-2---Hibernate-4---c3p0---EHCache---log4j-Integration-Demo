@@ -35,8 +35,7 @@
 
      <!-- Hibernate as JPA vendor-->
 	<bean id="jpaAdapter"
-		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-		p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -54,6 +53,8 @@
                 <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
                 <!--useful for debugging-->
                 <prop key="hibernate.generate_statistics">${hibernate.statistics}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>                
 			</props>
 		</property>
 

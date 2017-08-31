@@ -13,6 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.danielme.demo.springjpahib.ApplicationContext;
 import com.danielme.demo.springjpahib.Country;
 import com.danielme.demo.springjpahib.CountryDao;
 
@@ -24,6 +25,7 @@ import com.danielme.demo.springjpahib.CountryDao;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/resources/applicationContext.xml")
+//@ContextConfiguration(classes = { ApplicationContext.class})
 public class CountryDaoTest
 {
 
@@ -61,6 +63,7 @@ public class CountryDaoTest
 		assertEquals(countryDao.getAll().size(), 3);
 
 		Country country = countryDao.getCountryByName("Spain");
+		countryDao.getById(country.getId());
 		// get the country from the cache because this entity is annotated with
 		// @org.hibernate.annotations.Cache
 		assertEquals(countryDao.getById(country.getId()).getName(), "Spain");

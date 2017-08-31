@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.GenericGenerator;
+
 /**
  * Sample JPA entity.
  * @author danielme.com
@@ -22,8 +24,16 @@ import javax.persistence.TemporalType;
 @Table(name="countries")
 public class Country
 {
-	 @Id
-	 @GeneratedValue(strategy = GenerationType.AUTO)
+    //Use the IDENTITY generator instead of TABLE in MySQL and Hibernate 5 
+    @Id
+    @GeneratedValue(
+        strategy= GenerationType.AUTO, 
+        generator="native"
+    )
+    @GenericGenerator(
+        name = "native", 
+        strategy = "native"
+    )
 	 private Long id;
 	 
 	 @Column(nullable = false, unique=true)
